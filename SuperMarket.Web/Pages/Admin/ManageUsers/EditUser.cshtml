@@ -1,0 +1,137 @@
+﻿@page "{id}"
+@using SuperMarket.DataLayer.Entites.User
+@model SuperMarket.Web.Pages.Admin.ManageUsers.EditUserModel
+@{
+    ViewData["Title"] = "افزودن کاربر";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">ویرایش کاربر</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="EditUserViewModel.UserId" />
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    اطلاعات کاربر
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>نام و نام خانوادگی</label>
+                        <input type="text" asp-for="EditUserViewModel.UserName" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>شماره موبایل</label>
+                        <label class="text-success">@Model.EditUserViewModel.Mobile</label>
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" asp-for="EditUserViewModel.Email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="EditUserViewModel.State" class="form-control">
+                            <option>تهران</option>
+                            <option>خوزستان</option>
+                            <option>خراسان رضوی</option>
+                            <option>اصفهان</option>
+                            <option>فارس</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="EditUserViewModel.City" class="form-control">
+                            <option> --- لطفا انتخاب کنید --- </option>
+                            <option>تهران</option>
+                            <option>قدس</option>
+                            <option>شهریار</option>
+                            <option>اسلامشهر</option>
+                            <option>ورامین</option>
+                            <option>ری</option>
+                            <option>دماوند</option>
+                            <option>فیروزکوه</option>
+                            <option>اهواز</option>
+                            <option>دزفول</option>
+                            <option>آبادان</option>
+                            <option>خرمشهر</option>
+                            <option>اندیمشک</option>
+                            <option>بهبهان</option>
+                            <option>شوش</option>
+                            <option>سوسنگرد</option>
+                            <option>هویزه</option>
+                            <option>مشهد</option>
+                            <option>نیشابور</option>
+                            <option>سبزوار</option>
+                            <option>تربت حیدریه</option>
+                            <option>قوچان</option>
+                            <option>تربت جام</option>
+                            <option>اصفهان</option>
+                            <option>کاشان</option>
+                            <option>خمینی شهر</option>
+                            <option>نجف آباد</option>
+                            <option>شاهین شهر</option>
+                            <option>شهرضا</option>
+                            <option>فولادشهر</option>
+                            <option>مبارکه</option>
+                            <option>سمیرم</option>
+                            <option>شیراز</option>
+                            <option>فسا</option>
+                            <option>آباده</option>
+                            <option>کازرون</option>
+                            <option>داراب</option>
+                            <option>مرودشت</option>
+                            <option>فیروزآباد</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>آدرس 1</label>
+                        <input type="text" asp-for="EditUserViewModel.Address" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>کلمه عبور</label>
+                        <input type="text" asp-for="EditUserViewModel.Password" class="form-control" />
+                        <p class="help-block">در صورت وارد کردن کلمه عبور ، کلمه عبور کاربر تغییر خواهد کرد</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="EditUserViewModel.IsAdmin" /> @Html.DisplayNameFor(model => model.EditUserViewModel.IsAdmin)
+                        </label>
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger">
+                    </div>
+                    <input type="submit" value="ویرایش اطلاعات" class="btn btn-success" />
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    var stateAndCity = {};
+    stateAndCity['تهران'] = ['تهران', 'قدس', 'شهریار', 'اسلامشهر', 'ورامین', 'ری', 'دماوند', 'فیروزکوه'];
+    stateAndCity['خوزستان'] = ['اهواز', 'دزفول', 'آبادان', 'خرمشهر', 'اندیمشک', 'بهبهان', 'شوش', 'سوسنگرد', 'هویزه'];
+    stateAndCity['خراسان رضوی'] = ['مشهد', 'نیشابور', 'سبزوار', 'تربت حیدریه', 'قوچان', 'تربت جام'];
+    stateAndCity['اصفهان'] = ['اصفهان', 'کاشان', 'خمینی شهر', 'نجف آباد', 'شاهین شهر', 'شهرضا', 'فولادشهر', 'مبارکه', 'سمیرم'];
+    stateAndCity['فارس'] = ['شیراز', 'فسا', 'آباده', 'کازرون', 'داراب', 'مرودشت', 'فیروزآباد'];
+    function ChangeStateList() {
+        var stateList = document.getElementById("State-List");
+        var cityList = document.getElementById("City-List");
+        var selStete = stateList.options[stateList.selectedIndex].value;
+        while (cityList.options.length) {
+            cityList.remove(0);
+        }
+        var states = stateAndCity[selStete];
+        if (states) {
+            var i;
+            for (i = 0; i < states.length; i++) {
+                var state = new Option(states[i], i);
+                cityList.options.add(state);
+            }
+        }
+    }
+</script>

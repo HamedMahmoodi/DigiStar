@@ -1,0 +1,160 @@
+﻿@model SuperMarket.DataLayer.Entites.Product.Product
+@{
+    ViewData["Title"] = Model.ProductTitle;
+}
+
+@section MetaTag
+    {
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="image/favicon.png" rel="icon" />
+    <title>@Model.ProductTitle</title>
+    <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
+
+    <meta name=googlebot content=index,follow>
+    <meta name=robots content=noodp,noydir>
+    <meta name=description content="شرح صفحه">
+
+    <meta property=og:site_name value="خودآموزش تاپ لرن">
+    <meta property=og:title content="@Model.ProductTitle">
+    <meta property=og:url content="شرح صفحه" />
+    <meta property=og:image content="/products/image/@Model.ProductImageName">
+    <meta property=og:image:url content="/products/image/@Model.ProductImageName" />
+    <meta property=og:image:width content="700">
+
+    <meta property=og:image:type content="image/jpg">
+    <meta property=og:description content="">
+    <meta property=og:price:currency content="IRR">
+    <meta property=og:locale content="ir_FA">
+}
+<link rel="stylesheet" type="text/css" href="js/swipebox/src/css/swipebox.min.css">
+<div id="container">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.ProductTitle</li>
+            </ul>
+        </nav>
+        <br />
+        <br />
+        <div class="row">
+            <div id="content" class="col-sm-9">
+                <div itemscope="" itemtype="http://schema.org/محصولات">
+                    <h1 class="title" itemprop="name">@Model.ProductTitle</h1>
+                    <div class="row product-info">
+                        <div class="col-sm-6">
+                            <div class="image" style="height:350px;width:350px;">
+                                <img class="img-responsive" itemprop="image" id="zoom_01" src="/products/image/@Model.ProductImageName" title="@Model.ProductTitle" alt="@Model.ProductTitle" data-zoom-image="/products/image/@Model.ProductImageName" style="width: 300px; height: 300px;" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="col-sm-6">
+                            @if (Model.StatusId == 1)
+                            {
+                                <ul>
+                                    <li><b>وضعیت موجودی :</b> <span class="instock">@Model.ProductStatus.StatusTitle</span></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul>
+                                    <li><b>وضعیت موجودی :</b> <span class="nostock">@Model.ProductStatus.StatusTitle</span></li>
+                                </ul>
+                            }
+                            <br />
+                            @if (Model.StatusId == 1)
+                            {
+                                <ul class="price-range">
+                                    <li><b>قیمت :</b> <span class="text-success">@Model.ProductPrice.ToString("#,0") تومان</span></li>
+                                </ul>
+                            }
+                            <br />
+                            <ul>
+                                <li><b>توضیحات :</b> <p>@Model.ProductDescription</p></li>
+                            </ul>
+                            @if (Model.StatusId == 1)
+                            {
+                                <div id="product">
+                                    <div class="cart">
+                                        <div>
+                                            <a href="/Product/BuyProduct/@Model.ProductId" type="button" id="button-cart" class="btn btn-success btn-lg">
+                                                افزودن به سبد
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="cart">
+                                </div>
+                                <h5 class="alert alert-danger">متاسفانه این محصول در حال حاضر موجودنیست.</h5>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <section class="user-comments">
+                    <header><h3> نظرات کاربران </h3></header>
+                    <div class="inner">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="Product" asp-action="CreateComment"
+                                  data-ajax="true"
+                                  data-ajax-method="post"
+                                  data-ajax-mode="replace"
+                                  data-ajax-update="#listComment"
+                                  data-ajax-success="Success">
+                                <input type="hidden" name="comment.ProductId" value="@Model.ProductId" />
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group required">
+                                            <textarea rows="4" class="form-control" id="comment_Comment" name="comment.Comment" placeholder="درج نظر"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <button type="submit" class="btn btn-success"> ثبت دیدگاه </button>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                جهت درج نظر باید وارد سایت شوید
+                            </div>
+                        }
+
+                        <div class="comment-list" id="listComment">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script src="/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+
+        function Success() {
+            $("#comment_Comment").val("");
+        }
+        $(function() {
+            $("#listComment").load("/Product/ShowComment/" + @Model.ProductId);
+        });
+
+        function pageComment(pageid) {
+            $("#listComment").load("/Product/ShowComment/" + @Model.ProductId+"?pageId="+pageid);
+        }
+
+    </script>
+}
+
+
+

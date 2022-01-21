@@ -1,0 +1,84 @@
+﻿@using SuperMarket.Core.Convertors
+@using SuperMarket.Core.DTOs
+@model SuperMarket.Core.DTOs.ChargeWalletViewModel
+@{
+    ViewData["Title"] = "کیف پول شما";
+}
+
+<div id="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+            <li class="breadcrumb-item active" aria-current="page"> کیف پول </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1 class="title"> کیف پول من</h1></header>
+                        <div class="inner form-layer">
+                            <form asp-action="Index" method="post" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group required">
+                                        <div class="col-sm-5">
+                                            <label><i class="far fa-money-check-edit"></i> مبلغ شارژ را وارد کنید</label>
+                                            <input asp-for="Amount" type="number" class="form-control" id="input-number" placeholder="مبلغ به تومان" value="" name="amount">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div asp-validation-summary="All" class="text-danger">
+                                </div>
+                                <div class="buttons">
+                                    <div class="pull-right">
+                                        <input type="submit" class="btn btn-success" value="شارژ کیف پول">
+                                    </div>
+                                </div>
+                            </form>
+                            <hr />
+                            @{
+                                List<WalletViewModel> list = ViewBag.ListWallet as List<WalletViewModel>;
+                            }
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>مبلغ</th>
+                                    <th>تاریخ</th>
+                                    <th>نوع تراکنش</th>
+                                    <th>شرح</th>
+                                </tr>
+                                @foreach (var item in list)
+                                {
+                                    <tr>
+                                        <td>@item.Amount.ToString("#,0 تومان")</td>
+                                        <td>@item.DateTime.ToShamsi()</td>
+                                        <td>
+                                            @if (item.Type == 1)
+                                            {
+                                                <p class="text-success">واریز به حساب</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger">برداشت از حساب</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                string tagHref = "<a href='/UserPanel/MyOrders/ShowOrder/" + item.Description.Replace("سفارش شماره #", "") + "' >#</a>";
+                                            }
+                                            @Html.Raw(item.Description.Replace("#", tagHref))
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

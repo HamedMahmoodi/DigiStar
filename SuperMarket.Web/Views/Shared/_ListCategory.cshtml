@@ -1,0 +1,30 @@
+﻿@*دسته بندی محصولات*@
+
+@using SuperMarket.DataLayer.Entites.Product
+
+<h4 class="filter-price">دسته بندی</h4>
+@{
+    List<ProductGroup> groups = ViewBag.Groups as List<ProductGroup>;
+}
+<div class="box-category product-filter">
+    <ul id="cat_accordion">
+        @foreach (var group in groups.Where(g => g.ParentId == null))
+        {
+            <li class="cutom-parent-li">
+                <a class="cutom-parent" href="/Product?selectedGroups=@group.GroupId">@group.GroupTitle <span class="dcjq-icon"></span></a>
+                <span class="down"></span>
+                @if (groups.Any(g => g.ParentId == group.GroupId))
+                {
+                    <ul style="display: none;">
+                        @foreach (var sub in groups.Where(g => g.ParentId == group.GroupId))
+                        {
+                            <li class="cutom-parent-li">
+                                <a class="cutom-parent" href="/Product?selectedGroups=@sub.GroupId">@sub.GroupTitle <span class="dcjq-icon"></span></a> 
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+</div>

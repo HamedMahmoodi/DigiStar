@@ -1,0 +1,19 @@
+﻿@model SuperMarket.DataLayer.Entites.User.User
+@{
+    ViewData["Title"] = "پایان ثبت نام";
+}
+
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">پایان ثبت نام</li>
+    </ul>
+</nav>
+
+<div class="alert alert-success">
+    <h2>@Model.UserName عزیز!</h2>
+    <p>ثبت نام شماانجام شد، پیامی حاوی کد فعالسازی به ایمیل "@Model.Email" پیامک شد.</p>
+    <p>جهت فعالسازی حساب کاربری وارد لینک موجود در ایمیل ارسالی شوید.</p>
+</div>
+
+

@@ -1,0 +1,140 @@
+﻿@model SuperMarket.Core.DTOs.RegisterViewModel
+@{
+    ViewData["Title"] = "ثبت نام";
+}
+
+<div id="container">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">عضویت در سایت</li>
+            </ul>
+        </nav>
+
+        <div class="row">
+            <div class="col-sm-9" id="content">
+                <h3 class="title">ثبت نام حساب کاربری</h3>
+                <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به سایت <a href="/Login">کلیک</a>  کنید.</p>
+                <section class="user-account-content">
+                    <form asp-action="Register" method="post" class="form-horizontal">
+                        <fieldset id="account">
+                            <legend>اطلاعات شخصی شما</legend>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-user"></i> نام و نام خانوادگی </label>
+                                    <input asp-for="UserName" type="text" class="form-control" id="input-username" name="username">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-phone-square"></i>شماره موبایل </label>
+                                    <input asp-for="Mobile" type="tel" class="form-control" id="input-mobile" name="mobile">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-sm-12">
+                                    <label class="control-label"><i class="far fa-envelope"></i>  ایمیل </label>
+                                    <input asp-for="Email" type="email" class="form-control" id="input-email" name="email">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset id="address">
+                            <legend>آدرس</legend>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-map-marked-alt"></i> استان </label>
+                                    <select asp-for="State" class="form-control" id="State-List" onchange="ChangeStateList()" name="state">
+                                        <option value=""> --- لطفا انتخاب کنید --- </option>
+                                        <option value="تهران">تهران</option>
+                                        <option value="خوزستان">خوزستان</option>
+                                        <option value="خراسان رضوی">خراسان رضوی</option>
+                                        <option value="اصفهان">اصفهان</option>
+                                        <option value="فارس">فارس</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-map-marked-alt"></i> شهر </label>
+                                    <select asp-for="City" class="form-control" id="City-List" name="city">
+                                        <option> --- لطفا انتخاب کنید --- </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-sm-12">
+                                    <label class="control-label"><i class="far fa-map-marked-alt"></i> آدرس </label>
+                                    <input asp-for="Address" type="text" class="form-control" id="input-address" name="address">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>رمز عبور </legend>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-key"></i> کلمه عبور </label>
+                                    <input asp-for="Password" type="password" class="form-control" id="password" name="password">
+                                    <span id="togglePassword" class="far fa-fw fa-eye field-icon"></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label"><i class="far fa-key"></i> تکرار کلمه عبور </label>
+                                    <input asp-for="RePassword" type="password" class="form-control" id="password2" name="repassword">
+                                    <span id="togglePassword2" class="far fa-fw fa-eye field-icon"></span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div asp-validation-summary="All" class="text-danger">
+                        </div>
+                        <div class="buttons">
+                            <div class="pull-right">
+                                <input type="submit" class="btn btn-primary" value="عضویت در سایت">
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script>
+        var stateAndCity = {};
+        stateAndCity['تهران'] = ['تهران', 'قدس', 'شهریار', 'اسلامشهر', 'ورامین', 'ری', 'دماوند', 'فیروزکوه'];
+        stateAndCity['خوزستان'] = ['اهواز', 'دزفول', 'آبادان', 'خرمشهر', 'اندیمشک', 'بهبهان', 'شوش', 'سوسنگرد', 'هویزه'];
+        stateAndCity['خراسان رضوی'] = ['مشهد', 'نیشابور', 'سبزوار', 'تربت حیدریه', 'قوچان', 'تربت جام'];
+        stateAndCity['اصفهان'] = ['اصفهان', 'کاشان', 'خمینی شهر', 'نجف آباد', 'شاهین شهر', 'شهرضا', 'فولادشهر', 'مبارکه', 'سمیرم'];
+        stateAndCity['فارس'] = ['شیراز', 'فسا', 'آباده', 'کازرون', 'داراب', 'مرودشت', 'فیروزآباد'];
+        function ChangeStateList() {
+            var stateList = document.getElementById("State-List");
+            var cityList = document.getElementById("City-List");
+            var selStete = stateList.options[stateList.selectedIndex].value;
+            while (cityList.options.length) {
+                cityList.remove(0);
+            }
+            var states = stateAndCity[selStete];
+            if (states) {
+                var i;
+                for (i = 0; i < states.length; i++) {
+                    var state = new Option(states[i], i);
+                    cityList.options.add(state);
+                }
+            }
+        }
+
+        var togglePassword = document.querySelector('#togglePassword');
+        var password = document.querySelector('#password');
+        togglePassword.addEventListener('click', function (e) {
+            var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        var togglePassword2 = document.querySelector('#togglePassword2');
+        var password2 = document.querySelector('#password2');
+        togglePassword2.addEventListener('click', function (e) {
+            var type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+            password2.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+}

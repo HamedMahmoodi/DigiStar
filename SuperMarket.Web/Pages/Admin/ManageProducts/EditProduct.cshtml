@@ -1,0 +1,111 @@
+﻿@page "{id}"
+@model SuperMarket.Web.Pages.Admin.ManageProducts.EditProductModel
+@{
+    ViewData["Title"] = "ویرایش محصول";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">ویرایش محصول </h1>
+    </div>
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Product.CreateDate" />
+        <input type="hidden" asp-for="Product.ProductId" />
+        <input type="hidden" asp-for="Product.ProductImageName" />
+        <div class="col-md-8">
+            <h2>اطلاعات محصول</h2>
+            <hr />
+            <div class="form-group">
+                <label>عنوان محصول</label>
+                <input type="text" asp-for="Product.ProductTitle" class="form-control">
+                <span asp-validation-for="Product.ProductTitle"></span>
+            </div>
+            <div class="form-group">
+                <label>گروه اصلی</label>
+                <select class="form-control" asp-for="Product.GroupId" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+                <span asp-validation-for="Product.GroupId"></span>
+            </div>
+            <div class="form-group">
+                <label>گروه فرعی</label>
+                <select class="form-control" asp-for="Product.SubGroup" asp-items="@(ViewData["SubGroups"] as SelectList)"></select>
+                <span asp-validation-for="Product.SubGroup"></span>
+            </div>
+            <div class="form-group">
+                <label>توضیحات محصول</label>
+                <textarea class="form-control" asp-for="Product.ProductDescription" rows="6"></textarea>
+                <span asp-validation-for="Product.ProductDescription"></span>
+            </div>
+            <div class="form-group">
+                <label>قیمت محصول</label>
+                <input type="number" asp-for="Product.ProductPrice" class="form-control" />
+                <span asp-validation-for="Product.ProductPrice"></span>
+            </div>
+            <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+        </div>
+        <div class="col-md-4">
+            <p></p>
+            <img id="imgProduct" class="thumbnail" src="/products/image/@Model.Product.ProductImageName" />
+            <div class="form-group">
+
+                <label>انتخاب تصویر</label>
+                <input type="file" name="imgProductUp" id="imgProductUp">
+            </div>
+            <div class="form-group">
+                <label>وضعیت محصول</label>
+                <select class="form-control" asp-for="Product.StatusId" asp-items="@(ViewData["Statues"] as SelectList)"></select>
+                <span asp-validation-for="Product.StatusId"></span>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script>
+        $("#Product_GroupId").change(function () {
+            $("#Product_SubGroup").empty();
+            $.getJSON("/home/GetSubGroups/" + $("#Product_GroupId :selected").val(),
+                function (data) {
+
+                    $.each(data,
+                        function () {
+                            $("#Product_SubGroup").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                        });
+
+                });
+
+
+        });
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgProductUp").change(function () {
+            readURL(this);
+        });
+    </script>
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    @*<script>
+
+        CKEDITOR.replace('Product_ProductDescription', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>*@
+}
+

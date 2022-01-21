@@ -1,0 +1,69 @@
+﻿@*جهت آیکون سبد خرید*@
+
+@model SuperMarket.DataLayer.Entites.Order.Order
+@using SuperMarket.DataLayer.Entites.Order
+@using SuperMarket.DataLayer.Entites.Product
+@{
+    int sumOrder = Model.OrderSum;
+}
+
+@if (!Model.IsFinaly)
+{
+    @if (sumOrder != 0)
+    {
+        <div id="cart">
+            <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="heading dropdown-toggle">
+                <span class="cart-icon pull-left flip"></span>
+                <span id="cart-total">@((sumOrder).ToString("#,0"))تومان</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var item in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td class="text-center"><a href="/ShowProduct/@item.ProductId"><img class="img-thumbnail" alt="@item.Product.ProductTitle" title="@item.Product.ProductTitle" src="/products/thumb/@item.Product.ProductImageName"></a></td>
+                                    <td class="text-left"><a href="/ShowProduct/@item.ProductId">@item.Product.ProductTitle</a></td>
+                                    <td class="text-right">x@(item.Count)</td>
+                                    <td class="text-right">@((item.Count * item.Price).ToString("#,0")) تومان</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </li>
+                <li>
+                    <div>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td class="text-right"><strong>جمع کل</strong></td>
+                                    <td class="text-right">@((sumOrder).ToString("#,0"))تومان</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                    <td class="text-right">@((sumOrder).ToString("#,0"))تومان</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="checkout"><a href="/UserPanel/MyOrders/ShowOrder/@Model.OrderId" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="/Product" class="btn btn-primary"><i class="fa fa-share"></i> ادامه خرید</a></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div id="cart">
+            <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="heading dropdown-toggle">
+                <span class="cart-icon pull-left flip"></span>
+                <span id="cart-total">@((sumOrder).ToString("#,0"))تومان</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <p class="alert alert-danger">سبد خرید شما خالی است</p>
+                </li>
+            </ul>
+        </div>
+    }
+}

@@ -1,0 +1,77 @@
+﻿@using SuperMarket.Core.Convertors
+@model IEnumerable<SuperMarket.DataLayer.Entites.Order.Order>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+            <li class="breadcrumb-item active" aria-current="page"> نمایش سفارشات من </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <!--Middle Part Start-->
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <h1 class="title">سفارشات من</h1>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="text-left">شماره فاکتور</td>
+                                        <td class="text-left">تاریخ ثبت سفارش</td>
+                                        <td class="text-right">هزینه سفارش</td>
+                                        <td class="text-right">پرداخت </td>
+                                        <td class="text-right">دستورات </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-left">
+                                                @item.OrderId
+                                            </td>
+                                            <td class="text-left">
+                                                @item.CreateDate.ToShamsi()
+                                            </td>
+                                            <td class="text-right">@item.OrderSum.ToString("#,0") تومان</td>
+                                            <td class="text-right">
+                                                @if (item.IsFinaly)
+                                                {
+                                                <p class="text-success">
+                                                    پرداخت شده
+                                                    <i class="far fa-check-circle"></i>
+                                                </p>
+                                                }
+                                                else
+                                                {
+                                            <p class="text-danger">
+                                                پرداخت نشده
+                                                <i class="far fa-times-circle"></i>
+                                            </p>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary" href="/UserPanel/MyOrders/ShowOrder/@item.OrderId">نمایش فاکتور</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!--Middle Part End -->
+    </div>
+</main>

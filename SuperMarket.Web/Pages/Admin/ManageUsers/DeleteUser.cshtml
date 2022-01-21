@@ -1,0 +1,42 @@
+﻿@page "{id}"
+@using SuperMarket.Core.Convertors
+@model SuperMarket.Web.Pages.Admin.ManageUsers.DeleteUserModel
+@{
+    ViewData["Title"] = "حذف کاربر";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            حذف کاربر
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                <input type="hidden" name="UserId" value="@ViewData["UserId"].ToString()" />
+
+                <dl class="dl-horizontal">
+                    <dt>نام کاربری : </dt>
+                    <dd>@Model.InformationUserViewModel.UserName</dd>
+                    <dt>شماره موبایل : </dt>
+                    <dd>@Model.InformationUserViewModel.Mobile</dd>
+                    <dt>ایمیل : </dt>
+                    <dd>@Model.InformationUserViewModel.Email</dd>
+                    <dt>موجودی کیف پول  : </dt>
+                    <dd>@Model.InformationUserViewModel.Wallet</dd>
+                    <dt>تاریخ عضویت : </dt>
+                    <dd>@Model.InformationUserViewModel.RegisterDate.ToShamsi()</dd>
+                    <dt></dt>
+                    <dd>
+                        آیا این کاربر حذف شود؟
+                        <input type="submit" value="حذف" class="btn btn-danger" />
+                        <a href="/admin/manageUsers" class="btn btn-default">خیر</a>
+                    </dd>
+                </dl>
+            </form>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+
+

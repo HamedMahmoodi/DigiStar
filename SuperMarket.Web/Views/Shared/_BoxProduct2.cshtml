@@ -1,0 +1,31 @@
+﻿@*برای صفحه محصولات*@
+
+@model SuperMarket.Core.DTOs.Product.ShowProductListItemViewModel
+
+<div class="product-layout product-list col-xs-12">
+    <div class="product-thumb">
+        <div class="image">
+            <a href="/ShowProduct/@Model.ProductId"><img src="/products/thumb/@Model.ImageName" class="img-responsive" alt="@Model.Title" title="@Model.Title" /></a>
+        </div>
+        <div class="caption">
+            <h4><a href="/ShowProduct/@Model.ProductId">@Model.Title</a></h4>
+            @if (Model.StatusId == 1)
+            {
+                <p class="price"><span class="price">@Model.Price.ToString("#,0") تومان</span></p>
+            }
+        </div>
+        <div class="button-group">
+            @if (Model.StatusId == 1)
+            {
+                <a href="/Product/BuyProduct/@Model.ProductId" class="btn-success cart-index" type="button"><span>افزودن به سبد</span></a>
+            }
+            else
+            {
+                <br />
+                <div class="namoojood">
+                    <span class="alert alert-danger namoojood">ناموجود</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

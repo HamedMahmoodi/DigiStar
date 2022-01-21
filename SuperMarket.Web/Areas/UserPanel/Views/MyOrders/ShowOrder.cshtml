@@ -1,0 +1,221 @@
+﻿@using SuperMarket.Core.Services.Interfaces
+@model SuperMarket.DataLayer.Entites.Order.Order
+@inject IUserService _UserService
+
+@{
+    ViewData["Title"] = "ShowOrder";
+    int sumOrder = Model.OrderSum;
+    string discountType = ViewBag.typeDiscount.ToString();
+}
+
+<div class="container">
+    <div id="container">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page"> نمایش سبد خرید </li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <!--Middle Part Start-->
+    @if (sumOrder != 0)
+    {
+        <div id="content" class="col-sm-12">
+            <h1 class="title">سبد خرید</h1>
+            <div class="table-responsive">
+                @if (Model.IsFinaly == true)
+                {
+                    <div class="alert alert-success">
+                        عملیات پرداخت با موفقیت انجام شد.
+                        <br />
+                        <a class="btn btn-primary" href="/">بازگشت به صفحه اصلی</a>
+                    </div>
+                }
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="text-center">تصویر</td>
+                            <td class="text-left">نام محصول</td>
+                            <td class="text-left">تعداد</td>
+                            <td class="text-right">قیمت واحد</td>
+                            <td class="text-right">جمع </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td style="height:100px;width:100px;" class="text-center"><a href="/ShowProduct/@item.ProductId"><img src="/products/thumb/@item.Product.ProductImageName" alt="@item.Product.ProductTitle" title="@item.Product.ProductTitle" class="img-thumbnail" /></a></td>
+                                <td class="text-left">
+                                    <a href="/ShowProduct/@item.ProductId">@item.Product.ProductTitle</a>
+                                </td>
+                                <td class="text-left">
+                                    <div class="input-group btn-block quantity">
+                                        @item.Count
+                                        <span class="btnOrder">
+                                            <a href="/Product/BuyProduct/@item.ProductId" data-toggle="tooltip" title="افزودن تعداد" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                                            @if (item.Count == 1)
+                                            {
+                                                <a href="/UserPanel/MyOrders/RemoveItemInOrder/@item.ProductId" data-toggle="tooltip" title="حذف" class="btn btn-default"><i class="fa fa-trash-alt"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/UserPanel/MyOrders/RemoveItemInOrder/@item.ProductId" data-toggle="tooltip" title="حذف" class="btn btn-default"><i class="fa fa-minus"></i></a>
+                                            }
+                                        </span>
+                                    </div>
+                                </td>
+                                <td id="priceprod" class="text-right">@item.Price.ToString("#,0") تومان</td>
+                                <td id="total_prod" class="text-right">@((item.Count * item.Price).ToString("#,0")) تومان</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            @if (!Model.IsFinaly)
+            {
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>در صورتی که کد تخفیف در اختیار دارید می توانید از کادر زیر استفاده کنید.</p>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form action="/UserPanel/MyOrders/UseDiscount" method="post">
+                                    <div class="input-group">
+                                        <input type="hidden" name="orderid" value="@Model.OrderId" />
+                                        <input type="text" name="code" placeholder="کد تخفیف خود را در اینجا وارد کنید" class="form-control" />
+                                        <span class="input-group-btn">
+                                            <input type="submit" value="اعمال کد تخفیف" data-loading-text="بارگذاری ..." class="btn btn-primary" />
+                                        </span>
+                                    </div>
+                                </form>
+                                @if (discountType != null)
+                                {
+                                    switch (discountType)
+                                    {
+                                        case "Success":
+                                            {
+                                                <div class="alert alert-success">
+                                                    <p class="text-muted">کد تخفیف با موفقیت اعمال شد.</p>
+                                                </div>
+                                                break;
+                                            }
+                                        case "ExpireDate":
+                                            {
+                                                <div class="alert alert-danger">
+                                                    <p class="text-muted">تاریخ کد تخفیف منقضی شده است.</p>
+                                                </div>
+                                                break;
+                                            }
+                                        case "NotFound":
+                                            {
+                                                <div class="alert alert-warning">
+                                                    <p class="text-muted">کد تخفیف معتبر نیست.</p>
+                                                </div>
+                                                break;
+                                            }
+                                        case "Finished":
+                                            {
+                                                <div class="alert alert-danger">
+                                                    <p class="text-muted">کد تخفیف به اتمام رسیده است.</p>
+                                                </div>
+                                                break;
+                                            }
+                                        case "UserUsed":
+                                            {
+                                                <div class="alert alert-info">
+                                                    <p class="text-muted">شما از این کد تخفیف قبلا استفاده کرده اید. </p>
+                                                </div>
+                                                break;
+                                            }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 pull-left">
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="text-right"><strong>جمع کل:</strong></td>
+                                    <td class="text-right">@((sumOrder).ToString("#,0")) تومان</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><strong>قابل پرداخت :</strong></td>
+                                    <td class="text-right">@((sumOrder).ToString("#,0")) تومان</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                //TODO Create Address In Order
+                @*<h4 class="panel-title">آدرس انتخاب شده جهت ارسال محصولات</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">آدرس 1</h4>
+                        </div>
+                        <div id="collapse-shipping" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">استان</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" placeholder="استان" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">شهر</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" placeholder="شهر" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">آدرس پستی</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" placeholder="آدرس پستی" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label">کدپستی</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" placeholder="کدپستی" class="form-control" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="buttons">
+                    <div class="pull-left"><a href="/Product" class="btn btn-default">ادامه خرید</a></div>
+
+                    @if (_UserService.BalanceUserWallet(User.Identity.Name) >= sumOrder)
+                    {
+                        <div class="pull-right"><a href="/UserPanel/MyOrders/FinalyOrder/@Model.OrderId" class="btn btn-success">تسویه حساب</a></div>
+                    }
+                    else
+                    {
+                        <div class="pull-right"><a class="btn btn-primary" disabled>تسویه حساب</a></div>
+                        <div class="alert alert-danger">
+                            موجودی کیف پول شما کافی نمی باشد ،لطفا از طریق این
+                            <a href="/UserPanel/Wallet" class="alert-link">لینک</a>
+                            اقدام به شارژ حساب کنید.
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <span class="alert alert-danger"> سبد خرید شما خالی است.</span>
+        <div class="buttons">
+            <div class="pull-left"><a href="/Product" class="btn btn-default">ادامه خرید</a></div>
+        </div>
+    }
+    <!--Middle Part End -->
+</div>

@@ -1,0 +1,105 @@
+﻿@page
+@using SuperMarket.DataLayer.Entites.User
+@model SuperMarket.Web.Pages.Admin.ManageUsers.CreateUserModel
+@{
+    ViewData["Title"] = "افزودن کاربر";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">افزودن کاربر جدید</h1>
+    </div>
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    اطلاعات کاربر
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>نام و نام خانوادگی</label>
+                        <input type="text" asp-for="CreateUserViewModel.UserName" class="form-control" />
+                        <span asp-validation-for="CreateUserViewModel.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>شماره موبایل</label>
+                        <input type="tel" asp-for="CreateUserViewModel.Mobile" class="form-control" />
+                        <span asp-validation-for="CreateUserViewModel.Mobile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" asp-for="CreateUserViewModel.Email" class="form-control" />
+                        <span asp-validation-for="CreateUserViewModel.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="CreateUserViewModel.State" id="State-List" onchange="ChangeStateList()" class="form-control">
+                            <option value=""> --- لطفا انتخاب کنید --- </option>
+                            <option value="تهران">تهران</option>
+                            <option value="خوزستان">خوزستان</option>
+                            <option value="خراسان رضوی">خراسان رضوی</option>
+                            <option value="اصفهان">اصفهان</option>
+                            <option value="فارس">فارس</option>
+                        </select>
+                        <span asp-validation-for="CreateUserViewModel.State" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="CreateUserViewModel.City" id="City-List" class="form-control">
+                            <option> --- لطفا انتخاب کنید --- </option>
+                        </select>
+                        <span asp-validation-for="CreateUserViewModel.City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>آدرس 1</label>
+                        <input type="text" asp-for="CreateUserViewModel.Address" class="form-control" />
+                        <span asp-validation-for="CreateUserViewModel.Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>کلمه عبور</label>
+                        <input type="password" asp-for="CreateUserViewModel.Password" class="form-control" />
+                        <span asp-validation-for="CreateUserViewModel.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="CreateUserViewModel.IsAdmin" /> @Html.DisplayNameFor(model => model.CreateUserViewModel.IsAdmin)
+                        </label>
+                    </div>
+                    <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+
+    <script>
+        var stateAndCity = {};
+        stateAndCity['تهران'] = ['تهران', 'قدس', 'شهریار', 'اسلامشهر', 'ورامین', 'ری', 'دماوند', 'فیروزکوه'];
+        stateAndCity['خوزستان'] = ['اهواز', 'دزفول', 'آبادان', 'خرمشهر', 'اندیمشک', 'بهبهان', 'شوش', 'سوسنگرد', 'هویزه'];
+        stateAndCity['خراسان رضوی'] = ['مشهد', 'نیشابور', 'سبزوار', 'تربت حیدریه', 'قوچان', 'تربت جام'];
+        stateAndCity['اصفهان'] = ['اصفهان', 'کاشان', 'خمینی شهر', 'نجف آباد', 'شاهین شهر', 'شهرضا', 'فولادشهر', 'مبارکه', 'سمیرم'];
+        stateAndCity['فارس'] = ['شیراز', 'فسا', 'آباده', 'کازرون', 'داراب', 'مرودشت', 'فیروزآباد'];
+        function ChangeStateList() {
+            var stateList = document.getElementById("State-List");
+            var cityList = document.getElementById("City-List");
+            var selStete = stateList.options[stateList.selectedIndex].value;
+            while (cityList.options.length) {
+                cityList.remove(0);
+            }
+            var states = stateAndCity[selStete];
+            if (states) {
+                var i;
+                for (i = 0; i < states.length; i++) {
+                    var state = new Option(states[i], i);
+                    cityList.options.add(state);
+                }
+            }
+        }
+    </script>
+}

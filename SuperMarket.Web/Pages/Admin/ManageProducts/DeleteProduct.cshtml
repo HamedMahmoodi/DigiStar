@@ -1,0 +1,53 @@
+﻿@page "{id}"
+@using SuperMarket.Core.Convertors
+@model SuperMarket.Web.Pages.Admin.ManageProducts.DeleteProductModel
+@{
+    ViewData["Title"] = "حذف محصول";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            حذف محصول
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                <input type="hidden" name="ProductId" value="@ViewData["ProductId"].ToString()" />
+                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>عنوان محصول</th>
+                            <th>قیمت</th>
+                            <th>تاریخ ثبت محصول</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="/products/thumb/@Model.InformationProductViewModel.ProductImageName" class="thumbnail" />
+                            </td>
+                            <td>
+                                @Model.InformationProductViewModel.ProductTitle
+                            </td>
+                            <td>
+                                @Model.InformationProductViewModel.ProductPrice.ToString("#,0") تومان
+                            </td>
+                            <td>
+                                @Model.InformationProductViewModel.CreateDate.ToShamsi()
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    آیا این محصول حذف شود؟
+                    <input type="submit" value="حذف" class="btn btn-danger" />
+                    <a href="/admin/manageProducts" class="btn btn-default">خیر</a>
+                </p>
+            </form>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+

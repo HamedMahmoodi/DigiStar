@@ -1,0 +1,6 @@
+﻿@model IEnumerable<SuperMarket.Core.DTOs.Product.ShowProductListItemViewModel>
+
+    @foreach (var item in Model)
+    {
+        <partial name="_BoxProduct" model="@item" />
+    }

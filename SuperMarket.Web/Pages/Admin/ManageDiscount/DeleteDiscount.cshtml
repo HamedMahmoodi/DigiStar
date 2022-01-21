@@ -1,0 +1,52 @@
+﻿@page "{id}"
+@model SuperMarket.Web.Pages.Admin.ManageDiscount.DeleteDiscountModel
+@{
+    ViewData["Title"] = "حذف کدتخفیف";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            حذف کد تخفیف
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                <input type="hidden" name="DiscountId" value="@ViewData["DiscountId"].ToString()" />
+                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                    <thead>
+                        <tr>
+                            <th>کد تخفیف</th>
+                            <th>درصد تخفیف</th>
+                            <th>تاریخ شروع</th>
+                            <th>تاریخ پایان</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                               @Model.InformationDiscountViewModel.DiscountCode
+                            </td>
+                            <td>
+                                @Model.InformationDiscountViewModel.DiscountPercent
+                            </td>
+                            <td>
+                                @Model.InformationDiscountViewModel.StartDate
+                            </td>
+                            <td>
+                                @Model.InformationDiscountViewModel.EndDate
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    آیا این کد تخفیف حذف شود؟
+                    <input type="submit" value="حذف" class="btn btn-danger" />
+                    <a href="/admin/ManageDiscount" class="btn btn-default">خیر</a>
+                </p>
+            </form>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+

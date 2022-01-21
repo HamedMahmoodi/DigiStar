@@ -1,0 +1,33 @@
+﻿@using SuperMarket.Core.Convertors
+@using SuperMarket.Core.DTOs
+@using SuperMarket.Core.Services.Interfaces
+@inject IUserService _UserService
+
+@{
+    SideBarUserPanelViewModel user = _UserService.GetSideBarUserPanelData(User.Identity.Name);
+}
+
+
+<div class="col-md-3 col-sm-5 col-xs-12">
+    <aside>
+        <div class="avatar-layer">
+            <div class="detail">
+                <span class="about_detail"> @user.UserName </span>
+                <span class="about_detail"> تاریخ عضویت : @user.RegisterDate.ToShamsi() </span>
+            </div>
+        </div>
+        <section class="panel-right">
+            <header><h3 class="panel-down"> میز کار </h3></header>
+            <div class="inner">
+                <ul class="panel-down">
+                    <li><a class="panel-down" href="/UserPanel"><i class="fa fa-file-user" id="icon-panel"></i> مشاهده حساب کاربری </a></li>
+                    <li><a class="panel-down" href="/UserPanel/EditProfile"><i class="fa fa-file-edit" id="icon-panel"></i>ویرایش حساب کاربری</a></li>
+                    <li><a class="panel-down" href="/UserPanel/ChangePassword"><i class="fa fa-key" id="icon-panel"></i> تغییر رمز عبور </a></li>
+                    <li><a class="panel-down" href="/UserPanel/Wallet"><i class="fa fa-wallet" id="icon-panel"></i> کیف پول من </a></li>
+                    <li><a class="panel-down" href="/UserPanel/MyOrders"><i class="fa fa-bags-shopping" id="icon-panel"></i> سفارش های من </a></li>
+                    <li><a class="panel-down" href="/LogOut"><i class="fa fa-sign-out-alt" id="icon-panel"></i> خروج از حساب کاربری </a></li>
+                </ul>
+            </div>
+        </section>
+    </aside>
+</div>

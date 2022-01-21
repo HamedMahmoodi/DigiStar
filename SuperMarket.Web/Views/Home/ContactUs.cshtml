@@ -1,0 +1,82 @@
+﻿@model SuperMarket.DataLayer.Entites.User.ContactUs
+
+@{
+    ViewData["Title"] = "تماس با ما";
+}
+
+<div id="container">
+    <div class="container">
+        <!-- Breadcrumb Start-->
+                <nav aria-label="breadcrumb">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">تماس با پشتیبانی</li>
+                    </ul>
+                </nav>
+                <!-- Breadcrumb End-->
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        <h3 class="title">تماس با پشتیبانی</h3>
+                        @if (ViewBag.IsSuccess != null)
+                        {
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'پیام شما با موفقیت ثبت شد.',
+                            showConfirmButton: false,
+                            timer: 3000,
+                        })
+                        var delay = 3000;
+                        setTimeout(function () { window.location = "/"; }, delay);
+                            </script>
+                        }
+                        <section class="user-account-content">
+                            <form asp-action="ContactUs" method="post" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label class="control-label"><i class="far fa-user"></i> نام ونام خانوادگی </label>
+                                            <input asp-for="UserName" type="text" value="" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="control-label"><i class="far fa-phone-square"></i> شماره تماس </label>
+                                            <input asp-for="Mobile" type="tel" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class=" col-sm-12">
+                                            <label class="control-label"><i class="far fa-envelope"></i> ایمیل </label>
+                                            <input asp-for="Email" type="email" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class=" col-sm-12">
+                                            <label class="control-label"><i class="far fa-clipboard-list"></i> عنوان </label>
+                                            <input asp-for="ContactTitle" type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-sm-6">
+                                            <label class="control-label"><i class="far fa-clipboard-list"></i> توضیحات </label>
+                                            <textarea asp-for="ContactDescription" rows="6" class="form-control" placeholder="درج پیام..."></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div asp-validation-summary="All" class="text-danger">
+                                </div>
+                                <div class="buttons">
+                                    <div class="pull-right">
+                                        <input type="submit" class="btn btn-primary" value="ارسال">
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                    <!--Middle Part End -->
+                </div>
+            </div>
+        </div>
+

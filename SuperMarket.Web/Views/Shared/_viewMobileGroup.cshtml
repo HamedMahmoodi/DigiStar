@@ -1,0 +1,11 @@
+﻿@*نمایش گروه موبایل در صفحه اصلی*@
+
+@model SuperMarket.DataLayer.Entites.Product.Product
+
+        <div class="product-thumb clearfix">
+            <div class="image"><a href="/ShowProduct/@Model.ProductId"><img src="/products/thumb/@Model.ProductImageName"alt="@Model.ProductTitle" title="@Model.ProductTitle" class="img-responsive" ></a></div>
+            <div class="caption">
+                <h4><a href="/ShowProduct/@Model.ProductId">@Model.ProductTitle</a></h4>
+                <p class="price"><span class="price-new">@Model.ProductPrice.ToString("#,0") تومان</span></p>
+            </div>
+        </div>

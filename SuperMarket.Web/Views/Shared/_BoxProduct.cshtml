@@ -1,0 +1,13 @@
+﻿@*برای صفحه اصلی*@
+
+@model SuperMarket.Core.DTOs.Product.ShowProductListItemViewModel
+
+<div class="product-thumb">
+    <div class="image">
+        <a href="/ShowProduct/@Model.ProductId"><img src="/products/thumb/@Model.ImageName" class="img-responsive" alt="@Model.Title" title="@Model.Title" /></a>
+    </div>
+    <div class="caption">
+        <h4><a href="/ShowProduct/@Model.ProductId">@Model.Title</a></h4>
+        <p class="price"><span class="price">@Model.Price.ToString("#,0") تومان</span></p>
+    </div>
+</div>

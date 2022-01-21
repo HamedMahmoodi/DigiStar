@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Projehaye Asp.net Core\SuperMarket\Publish</_PublishTargetUrl>
+    <History>True|2022-01-21T16:29:38.7423481Z;True|2022-01-20T21:55:34.0413605+03:30;False|2022-01-20T21:52:42.7021270+03:30;True|2022-01-10T22:15:23.8896526+03:30;True|2022-01-09T19:19:19.5872670+03:30;False|2022-01-09T19:16:39.9708543+03:30;True|2022-01-06T12:15:57.4526592+03:30;True|2022-01-06T11:34:50.1154908+03:30;True|2021-10-25T16:25:10.7333580+03:30;True|2021-10-25T16:09:05.6082058+03:30;True|2021-10-24T18:24:05.1554345+03:30;True|2021-10-07T13:18:30.4685485+03:30;True|2021-10-07T12:04:00.7673483+03:30;False|2021-10-07T12:00:41.2384608+03:30;True|2021-10-04T19:47:20.7458359+03:30;True|2021-10-01T20:02:35.5760986+03:30;</History>
+  </PropertyGroup>
+</Project>

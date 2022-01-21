@@ -1,0 +1,15 @@
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\SuperMarket.DataLayer.deps.json
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\SuperMarket.DataLayer.runtimeconfig.json
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\SuperMarket.DataLayer.runtimeconfig.dev.json
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\SuperMarket.DataLayer.dll
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\ref\SuperMarket.DataLayer.dll
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\bin\Debug\net5.0\SuperMarket.DataLayer.pdb
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.AssemblyInfoInputs.cache
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.AssemblyInfo.cs
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.csproj.CoreCompileInputs.cache
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.dll
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\ref\SuperMarket.DataLayer.dll
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.pdb
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.genruntimeconfig.cache
+D:\Projehaye Asp.net Core\SuperMarket\SuperMarket.DataLayer\obj\Debug\net5.0\SuperMarket.DataLayer.csproj.AssemblyReference.cache

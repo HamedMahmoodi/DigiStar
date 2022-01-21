@@ -1,0 +1,65 @@
+﻿
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/images/favicon.png" rel="icon" />
+    <title>دیجی استار @ViewData["Title"]</title>
+    @RenderSection("MetaTag", false)
+    <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
+    <!-- CSS Part Start-->
+    <partial name="_Styles" />
+    <!-- CSS Part End-->
+</head>
+<body>
+    <div class="wrapper-wide">
+        <div id="header">
+            <!-- Top Bar Start-->
+            <partial name="MenuPanel" />
+            <!-- Top Bar End-->
+            <!-- Header Start-->
+            @RenderSection("SearchBox", false)
+            <!-- Header End-->
+            <!-- Main آقایانu Start-->
+            @await Component.InvokeAsync("ProductGroupComponent")
+            <!-- Main آقایانu End-->
+        </div>
+        <div id="container">
+            @RenderBody()
+        </div>
+        <footer id="footer">
+            <partial name="_Footer" />
+        </footer>
+    </div>
+    <!-- JS Part Start-->
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.easing-1.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.dcjqaccordion.min.js"></script>
+    <script type="text/javascript" src="/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/js/custom.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery.validate.unobtrusive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- JS Part End-->
+    @RenderSection("Scripts", false)
+    <script type="text/javascript">
+        persian = { 0: '۰', 1: '۱', 2: '۲', 3: '۳', 4: '۴', 5: '۵', 6: '۶', 7: '۷', 8: '۸', 9: '۹' };
+        function traverse(el) {
+            if (el.nodeType == 3) {
+                var list = el.data.match(/[0-9]/g);
+                if (list != null && list.length != 0) {
+                    for (var i = 0; i < list.length; i++)
+                        el.data = el.data.replace(list[i], persian[list[i]]);
+                }
+            }
+            for (var i = 0; i < el.childNodes.length; i++) {
+                traverse(el.childNodes[i]);
+            }
+        }
+        traverse(document.body);
+    </script>
+</body>
+</html>

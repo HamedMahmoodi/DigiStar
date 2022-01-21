@@ -1,0 +1,92 @@
+﻿@model SuperMarket.Core.DTOs.LoginViewModel
+@{
+    ViewData["Title"] = "ورود";
+}
+
+
+<div id="container">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">ورود به سایت</li>
+            </ul>
+        </nav>
+
+        <div class="row">
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-8">
+                @if (ViewBag.IsSuccess != null)
+                {
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'ورود با موفقیت انجام شد',
+                            showConfirmButton: false,
+                            /*timer: 2000 */       
+                        })
+                        var delay = 2000;
+                        setTimeout(function () { window.location = "/"; }, delay);
+                    </script>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="alert alert-danger">
+                        شما به این قسمت دسترسی ندارید!
+                    </div>
+                }
+                <section class="user-account-content col-md-6">
+                    <h3 class="title">ورود به حساب کاربری</h3>
+                    <form asp-action="Login" method="post">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-mobile"><i class="far fa-phone-square"></i> شماره موبایل </label>
+                                    <input asp-for="Mobile" type="text" name="mobile" value="" id="input-mobile" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-password"><i class="far fa-key"></i> کلمه عبور </label>
+                                    <input asp-for="Password" type="password" name="password" value="" id="password" class="form-control" />
+                                    <span id="togglePassword" class="far fa-fw fa-eye field-icon"></span>
+                                    <br />
+                                    <div asp-validation-summary="All" class="text-danger">
+
+                                    </div>
+                                    <div class="remember-me">
+                                        <label>
+                                            <input asp-for="RememberMe" type="checkbox" name="">  مرا به خاطر بسپار
+                                        </label>
+                                    </div>
+                                    <a class="forgetpassword" href="/ForgotPassword">رمز عبور خود را فراموش کرده ام !</a>
+                                    <p class="Dlogin">
+                                        آیا حساب کاربری ندارید؟
+
+                                        <a class="register" href="/Register">ثبت نام</a>
+                                    </p>
+                                </div>
+
+                                <input id="btnlogin" type="submit" value="ورود" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <!--Middle Part End -->
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+<script>
+    var togglePassword = document.querySelector('#togglePassword');
+    var password = document.querySelector('#password');
+    togglePassword.addEventListener('click', function (e) {
+        var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+}
